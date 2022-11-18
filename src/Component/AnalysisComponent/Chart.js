@@ -1,4 +1,5 @@
 import React from 'react'
+
 import { Line } from 'react-chartjs-2';
 const state = {
     labels: ['January', 'February', 'March',
@@ -16,21 +17,21 @@ const state = {
     ]
 }
 
-export default function Chart() {
-  return (
-      <Line
-          data={state}
-          options={{
-              title: {
-                  display: true,
-                  text: 'Average Rainfall per month',
-                  fontSize: 20
-              },
-              legend: {
-                  display: true,
-                  position: 'right'
-              }
-          }}
-      />
-  )
+export default function LineGraph() {
+    return (
+        <Line
+            data={state}
+            options={{
+                title: {
+                    display: true,
+                    text: 'Average Rainfall per month',
+                    fontSize: 20
+                },
+                legend: {
+                    display: true,
+                    position: 'right'
+                }
+            }}
+        />
+    )
 }
