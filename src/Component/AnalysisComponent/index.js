@@ -4,7 +4,7 @@ import LineGraph from './Chart'
 export default function index() {
   return (
     <div>
-          <LineGraph />
+         analysis
     </div>
   )
 }
