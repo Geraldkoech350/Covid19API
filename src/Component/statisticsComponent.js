@@ -1,21 +1,51 @@
 import React, { useEffect } from 'react'
 import axios from 'axios';
 import Table from 'react-bootstrap/Table';
-import { getCountries, getStatisticsData } from '../Services/StatisticService';
+import { getCountries, getStatisticsData, getHistoryData, getHistoryDataCoutryDate } from '../Services/StatisticService';
 
 export default function StatisticsComponent({ darkMode }) {
   const [countries, setCountries] = React.useState([]);
-  const [statistics, setstatistics] = React.useState([])
+  const [statistics, setStatistics] = React.useState([])
+  const [statisticsV, setStatisticsV] = React.useState([])
+  const [Search, setSearch] = React.useState('')
 
   useEffect(() => {
+    getStatisticsData().then(res => {
+      setStatistics([...res])
+      setStatisticsV([...res])
+    })
     getCountries().then(res => {
+
       setCountries([...res])
     })
-    getStatisticsData().then(res => {
-      setstatistics([...res])
-    })
+    setStatisticsV([...statistics])
+
   }, [])
 
+  const HandleSubmitSearch = (e) => {
+    e.preventDefault()
+    setStatisticsV([...statisticsV.map(item => {
+      console.log(item.continent);
+      if (item.country.toLowerCase() !== Search.toLowerCase()) {
+
+        return
+      }
+      return item
+    })])
+
+  }
+
+  const HandleFilterByCountry = (event) => {
+    const country = event.target.value;
+    getHistoryData(country).then(res => {
+      setStatisticsV([...res])
+      console.log(res);
+    })
+  }
+  const HandleSearch = (e) => {
+    const search = e.target.value;
+    setSearch(search)
+  }
   const dark = () => {
     if (darkMode) return "dark"
     return "light"
@@ -24,11 +54,11 @@ export default function StatisticsComponent({ darkMode }) {
     <div className={(darkMode ? "bg-dark text-light" : "bg-light text-dark") + "container p-3"}>
       <div className='d-flex justify-content-between align-items-center py-3'>
         <div className=''>
-          <select className='form-select pl-2'>
+          <select onChange={HandleFilterByCountry} className='form-select pl-2'>
             <option selected>ALl countries</option>
             {
               countries.map(country => {
-                return <option value={country}>{country}</option>
+                return <option key={country} value={country}>{country}</option>
               })
             }
           </select>
@@ -36,8 +66,8 @@ export default function StatisticsComponent({ darkMode }) {
         <div>
           <div class="input-group pr-2 ">
 
-            <input type="text" className={(darkMode ? "bg-dark text-light form-control" : "bg-light text-dark form-control")} aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" />
-            <input type="button" value="Search" class="btn btn-default" id="Search" />
+            <input type="text" onChange={HandleSearch} className={(darkMode ? "bg-dark text-light form-control" : "bg-light text-dark form-control")} aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" />
+            <input type="button" onClick={HandleSubmitSearch} value="Search" class="btn btn-default" id="Search" />
           </div>
         </div>
 
@@ -46,29 +76,37 @@ export default function StatisticsComponent({ darkMode }) {
         <thead>
           <tr>
             <th>#</th>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Username</th>
+            <th>continent</th>
+            <th>country</th>
+            <th>population</th>
+            <th>Active cases</th>
+            <th>critical</th>
+            <th>recovered</th>
+            <th>Deaths</th>
+            <th>Tests</th>
+            <th>Date</th>
+
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>1</td>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
-          </tr>
-          <tr>
-            <td>3</td>
-            <td colSpan={2}>Larry the Bird</td>
-            <td>@twitter</td>
-          </tr>
+          {
+            statisticsV.map((item, i) => {
+              return (
+                <tr key={i}>
+                  <td>{i + 1}</td>
+                  <td>{item.continent}</td>
+                  <td>{item.country}</td>
+                  <td>{item.population}</td>
+                  <td>{item.cases.active}</td>
+                  <td>{item.cases.critical}</td>
+                  <td>{item.cases.recovered}</td>
+                  <td>{item.deaths.total}</td>
+                  <td>{item.tests.total}</td>
+                  <td>{item.time}</td>
+                </tr>
+              )
+            })
+          }
         </tbody>
       </Table>
     </div>
