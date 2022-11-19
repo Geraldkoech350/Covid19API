@@ -10,21 +10,27 @@ import {
     CartesianGrid,
 } from "recharts";
 
+
+
 export default function LineGraph({ state }) {
     return (
         <div className='container-fluid'>
             <LineChart
-                width={500}
-                height={500}
+                width={1000}
+                height={350}
                 data={state}
                 margin={{ top: 5, right: 20, left: 10, bottom: 5 }}
             >
-                <XAxis dataKey="name" />
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="Date" />
+                <YAxis />
                 <Legend />
                 <Tooltip />
                 <CartesianGrid stroke="#f5f5f5" />
-                <Line type="monotone" dataKey="uv" stroke="#ff7300" yAxisId={0} />
-                <Line type="monotone" dataKey="pv" stroke="#387908" yAxisId={1} />
+                <Line type="monotone" dataKey="cases" stroke="#ff0000" />
+                <Line type="monotone" dataKey="deaths" stroke="#0000ff" />
+                <Line type="monotone" dataKey="tests" stroke="#3cb371" />
+
             </LineChart>
         </div>
     )
