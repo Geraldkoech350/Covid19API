@@ -19,11 +19,9 @@ export default function Main() {
             setCountries([...res])
         })
 
-        console.log(Data);
         setState([...Data.map(item => {
             return { cases: item.cases.total, deaths: item.deaths.total, tests: item.tests.total, Date: item.day }
         })])
-        console.log(State);
     }, [])
 
     const HandleFilterByCountry = (event) => {

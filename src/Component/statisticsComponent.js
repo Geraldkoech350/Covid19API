@@ -24,14 +24,10 @@ export default function StatisticsComponent({ darkMode }) {
 
   const HandleSubmitSearch = (e) => {
     e.preventDefault()
-    setStatisticsV([...statisticsV.map(item => {
-      console.log(item.continent);
-      if (item.country.toLowerCase() !== Search.toLowerCase()) {
-
-        return
-      }
-      return item
-    })])
+    getHistoryData(Search).then(res => {
+      setStatisticsV([...res])
+      console.log(res);
+    })
 
   }
 

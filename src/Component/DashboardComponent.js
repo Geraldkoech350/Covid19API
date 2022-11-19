@@ -33,13 +33,12 @@ export default function DashboardComponent({ darkMode }) {
       }
     })
     setComfirmed(Active + Critical + Deaths + Recovered + Tests)
-
   }, [])
 
 
   return (
     <div className='container'>
-      <div className={(darkMode ? "bg-dark text-light grid py-5 gap-5 align-self-center justify-content-center" :"bg-light text-dark grid py-5 gap-5 align-self-center justify-content-center")+""}>
+      <div className={(darkMode ? "bg-dark text-light grid py-5 gap-5 align-self-center justify-content-center" : "bg-light text-dark grid py-5 gap-5 align-self-center justify-content-center") + ""}>
         <Card style={{ width: '15rem', height: '10rem' }}
           bg={!darkMode ? "dark" : "light"}
           text={darkMode ? "dark" : "light"}
