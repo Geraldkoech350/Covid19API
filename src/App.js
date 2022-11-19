@@ -10,30 +10,29 @@ import Navbar from './Component/Navbar';
 
 export default function App() {
   const [darkMode, setDarkMode] = React.useState(false);
- 
-  const DarkMode=()=>{
-    if(darkMode){
+
+  const DarkMode = () => {
+    if (darkMode) {
       return "bg-dark text-light"
     }
     else
-    
-    return "bg-light text-dark"
+      return "bg-light text-dark"
   }
 
   return (
 
-    <div className="container-fluid">
-      <Navbar darkMode={darkMode} setDarkMode={setDarkMode}/>
-      <div className={DarkMode()+""}>
+    <div className={DarkMode() + "container-fluid"}>
+      <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
+      <div className="">
         <Switch>
-          <Route exact path="/" component={DashboardComponent} />
-          <Route exact path="/statistics" component={statisticsComponent} />
-          <Route exact path="/analysis" component={Analysis} />
+          <Route exact path="/" component={() => <DashboardComponent darkMode={darkMode} />} />
+          <Route exact path="/statistics" component={() => <statisticsComponent darkMode={darkMode} />} />
+          <Route exact path="/analysis" component={() => <Analysis />} />
           <Redirect to="/" />
         </Switch>
-        <FooterComponent />
+        <FooterComponent darkMode={darkMode} />
       </div>
-    
+
     </div>
   )
 }

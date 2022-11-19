@@ -6,3 +6,11 @@
   border-radius:0% ;
 }
 
+.dark {
+  background-color: rgba(17, 17, 17, 0.971);
+  color: #fff;
+}
+.light {
+  background-color: #fff;
+  color: rgb(26, 26, 26);
+}
