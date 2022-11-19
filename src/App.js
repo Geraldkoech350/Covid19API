@@ -4,7 +4,7 @@ import { Switch, Route, Redirect } from "react-router-dom";
 
 import DashboardComponent from './Component/DashboardComponent';
 import FooterComponent from './Component/FooterComponent';
-import statisticsComponent from './Component/statisticsComponent';
+import StatisticsComponent from './Component/statisticsComponent';
 import Analysis from './Component/AnalysisComponent/index';
 import Navbar from './Component/Navbar';
 
@@ -26,8 +26,8 @@ export default function App() {
       <div className="">
         <Switch>
           <Route exact path="/" component={() => <DashboardComponent darkMode={darkMode} />} />
-          <Route exact path="/statistics" component={() => <statisticsComponent darkMode={darkMode} />} />
-          <Route exact path="/analysis" component={() => <Analysis />} />
+          <Route exact path="/statistics" component={() => <StatisticsComponent darkMode={darkMode} />} />
+          <Route exact path="/analysis" component={() => <Analysis darkMode={darkMode} />} />
           <Redirect to="/" />
         </Switch>
         <FooterComponent darkMode={darkMode} />
