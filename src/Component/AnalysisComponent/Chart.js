@@ -1,37 +1,31 @@
 import React from 'react'
 
-import { Line } from 'react-chartjs-2';
-const state = {
-    labels: ['January', 'February', 'March',
-        'April', 'May'],
-    datasets: [
-        {
-            label: 'Rainfall',
-            fill: false,
-            lineTension: 0.5,
-            backgroundColor: 'rgba(75,192,192,1)',
-            borderColor: 'rgba(0,0,0,1)',
-            borderWidth: 2,
-            data: [65, 59, 80, 81, 56]
-        }
-    ]
-}
+import {
+    LineChart,
+    Line,
+    XAxis,
+    YAxis,
+    Tooltip,
+    Legend,
+    CartesianGrid,
+} from "recharts";
 
-export default function LineGraph() {
+export default function LineGraph({ state }) {
     return (
-        <Line
-            data={state}
-            options={{
-                title: {
-                    display: true,
-                    text: 'Average Rainfall per month',
-                    fontSize: 20
-                },
-                legend: {
-                    display: true,
-                    position: 'right'
-                }
-            }}
-        />
+        <div className='container-fluid'>
+            <LineChart
+                width={500}
+                height={500}
+                data={state}
+                margin={{ top: 5, right: 20, left: 10, bottom: 5 }}
+            >
+                <XAxis dataKey="name" />
+                <Legend />
+                <Tooltip />
+                <CartesianGrid stroke="#f5f5f5" />
+                <Line type="monotone" dataKey="uv" stroke="#ff7300" yAxisId={0} />
+                <Line type="monotone" dataKey="pv" stroke="#387908" yAxisId={1} />
+            </LineChart>
+        </div>
     )
 }
