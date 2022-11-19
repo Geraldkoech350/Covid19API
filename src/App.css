@@ -14,3 +14,13 @@
   background-color: #fff;
   color: rgb(26, 26, 26);
 }
+
+.grid{
+    display:grid;
+    grid-template-columns: repeat(3,30%);
+    grid-auto-rows:40%;
+    gap:3%;
+    background-color: white;
+    border-radius: 10px;
+    height: auto;
+}

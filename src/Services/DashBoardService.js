@@ -1,6 +1,6 @@
 import Axios from "../Utils/Axios";
 
-export default async function DashBoardService() {
+export default DashBoardService = async () => {
 
     return await axios.get("https://covid-193.p.rapidapi.com/statistics",
         {
